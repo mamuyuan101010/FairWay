@@ -21,6 +21,7 @@ def get_customers():
     the_response.mimetype = 'application/json'
     return the_response
 
+#could use to get an invoice for a particular invoice number
 # Get customer detail for customer with particular userID
 @customers.route('/customers/<userID>', methods=['GET'])
 def get_customer(userID):
