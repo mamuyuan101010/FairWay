@@ -13,8 +13,8 @@ def add_manufacturer():
     manufacturerID = request.form['manufacturerID'] 
     phoneNumber = request.form['phoneNumber'] 
     email = request.form['email'] 
-    fname = request.form['firstName'] 
-    lname = request.form['lastName']
+    firstname = request.form['firstName'] 
+    lastname = request.form['lastName']
     query = f'INSERT INTO manufacturers(manufacturerID, phoneNumber, email, fname, lname) VALUES(\"{manufacturerID}", \"{phoneNumber}", \"{email}", \"{firstName}", \"{lastName}" )' 
     cursor.execute(query)
     db.get_db().commit()
