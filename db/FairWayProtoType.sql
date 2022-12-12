@@ -11,17 +11,17 @@ USE FairWay;
 
 
 CREATE TABLE Employee (
-    employee_id UNSIGNED char(10) PRIMARY KEY NOT NULL,
+    employee_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     Date_Been_Employed DATE NOT NULL,
     Email_Address TEXT NOT NULL UNIQUE,
     First_Name char(40) NOT NULL,
     Last_Name char(40) NOT NULL,
-    Supervisor_id char(10) NOT NULL UNIQUE,
+    Supervisor_id INT NOT NULL,
     FOREIGN KEY (Supervisor_id) REFERENCES Employee
 );
 
 CREATE TABLE Customer (
-    CustID UNSIGNED char(10) PRIMARY KEY NOT NULL,
+    CustID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     Email TEXT NOT NULL UNIQUE,
     Phone_Number UNSIGNED char(20) NOT NULL UNIQUE,
     First_Name char(40) NOT NULL,
@@ -39,18 +39,19 @@ CREATE TABLE Customer (
 );
 
 CREATE TABLE Invoice (
-    InvoiceID UNSIGNED char(10) PRIMARY KEY NOT NULL,
-    Purchase_Date DATE NOT NULL,
-    Country UNSIGNED INTEGER UNIQUE,
-    State TEXT UNIQUE,
-    Street TEXT NOT NULL UNIQUE,
+    InvoiceID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    Purchase_Date DATETIME DEFAULT CURRENT_TIMESTAMP
+                      ON UPDATE CURRENT_TIMESTAMP,
+    Country TEXT NOT NULL,
+    State TEXT,
+    Street TEXT NOT NULL,
     City TEXT NOT NULL,
     Customer_ID UNSIGNED INTEGER NOT NULL,
     FOREIGN KEY (Customer_ID) REFERENCES Customer(CustID)
 );
 
 CREATE TABLE InvoiceLine (
-    Invoice_LineID UNSIGNED char(10) PRIMARY KEY NOT NULL,
+    Invoice_LineID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     Quantity UNSIGNED INTEGER NOT NULL,
     UnitPrice UNSIGNED DECIMAL(3,2) NOT NULL,
     Receipt_ID UNSIGNED INTEGER NOT NULL,
@@ -58,7 +59,7 @@ CREATE TABLE InvoiceLine (
 );
 
 CREATE TABLE Product (
-    ProductId UNSIGNED char(10) PRIMARY KEY NOT NULL,
+    ProductId INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     Price UNSIGNED DECIMAL(3,2) NOT NULL,
     Name TEXT NOT NULL UNIQUE,
     Purchaser_ID UNSIGNED INTEGER NOT NULL,
@@ -66,14 +67,14 @@ CREATE TABLE Product (
 );
 
 CREATE TABLE Creators (
-    CreatorID UNSIGNED char(10) NOT NULL,
-    ItemID UNSIGNED INTEGER NOT NULL,
+    CreatorID INT NOT NULL,
+    ItemID INT NOT NULL,
     FOREIGN KEY (CreatorID) REFERENCES Product(ProductId),
     FOREIGN KEY (ItemID) REFERENCES Manufacturer(ManufacturerID)
 );
 
 CREATE TABLE Manufacturer (
-    ManufacturerID UNSIGNED char(10) PRIMARY KEY NOT NULL,
+    ManufacturerID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     Country TEXT NOT NULL,
     State_Or_Territory TEXT,
     Email TEXT NOT NULL UNIQUE,
@@ -104,49 +105,49 @@ insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_
 insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State, Support_Rep_id) values ('3717830517', 'jgotobed8@economist.com', '210-130-3870', 'Joli', 'Gotobed', 11, 11, 2011, 'Haas', 'United States', 'San Antonio', '8374344', 'Texas', '8138751160');
 insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State, Support_Rep_id) values ('6378104203', 'rtruelock9@omniture.com', '713-939-0264', 'Rennie', 'Truelock', 7, 8, 2012, 'Onsgard', 'United States', 'Houston', '4788416', 'Texas', '7647636297');
 
-insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values ('5641591974', '4/24/2022', 'United States', 'Maryland', 'Vahlen', 'Frederick', '4663379474');
-insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values ('0414917496', '3/25/2022', 'United States', 'Florida', 'Del Sol', 'Miami', '2149350838');
-insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values ('7928211549', '12/5/2021', 'United States', 'Louisiana', 'Nova', 'Baton Rouge', '4849930785');
-insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values ('2747065547', '3/9/2022', 'United States', 'California', 'Fulton', 'Berkeley', '9070656414');
-insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values ('1877930477', '2/8/2022', 'United States', 'Texas', 'Ohio', 'Plano', '6799170415');
-insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values ('1496167355', '7/17/2022', 'United States', 'South Carolina', 'Petterle', 'Greenville', '8618730516');
-insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values ('1881878623', '6/15/2022', 'United States', 'Florida', 'Anhalt', 'Miami', '5683701760');
-insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values ('8863764876', '5/4/2022', 'United States', 'Texas', 'Muir', 'Houston', '6993477013');
-insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values ('1546416761', '11/6/2022', 'United States', 'Florida', 'Kingsford', 'Tampa', '8873823243');
-insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values ('6721693740', '12/21/2021', 'United States', 'Washington', '3rd', 'Lakewood', '8175274402');
+insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (5641591974, '4/24/2022', 'United States', 'Maryland', 'Vahlen', 'Frederick', '4663379474');
+insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (0414917496, '3/25/2022', 'United States', 'Florida', 'Del Sol', 'Miami', '2149350838');
+insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (7928211549, '12/5/2021', 'United States', 'Louisiana', 'Nova', 'Baton Rouge', '4849930785');
+insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (2747065547, '3/9/2022', 'United States', 'California', 'Fulton', 'Berkeley', '9070656414');
+insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (1877930477, '2/8/2022', 'United States', 'Texas', 'Ohio', 'Plano', '6799170415');
+insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (1496167355, '7/17/2022', 'United States', 'South Carolina', 'Petterle', 'Greenville', '8618730516');
+insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (1881878623, '6/15/2022', 'United States', 'Florida', 'Anhalt', 'Miami', '5683701760');
+insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (8863764876, '5/4/2022', 'United States', 'Texas', 'Muir', 'Houston', '6993477013');
+insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (1546416761, '11/6/2022', 'United States', 'Florida', 'Kingsford', 'Tampa', '8873823243');
+insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (6721693740, '12/21/2021', 'United States', 'Washington', '3rd', 'Lakewood', '8175274402');
 
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values ('8783000960', 85, 77.48, '1341903065');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values ('9042357718', 63, 78.35, '5490744103');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values ('6539119653', 80, 13.4, '6748545864');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values ('0596087865', 9, 86.6, '9078999092');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values ('7757395069', 33, 43.94, '1521302192');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values ('3726370269', 36, 55.31, '3544498428');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values ('8151921466', 6, 29.38, '2172961925');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values ('1964349974', 29, 14.54, '6835569755');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values ('8467013135', 66, 89.01, '2500725428');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values ('5659865292', 46, 97.39, '0898289915');
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (8783000960, 85, 77.48, '1341903065');
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (9042357718, 63, 78.35, '5490744103');
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (6539119653, 80, 13.4, '6748545864');
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (0596087865, 9, 86.6, '9078999092');
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (7757395069, 33, 43.94, '1521302192');
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (3726370269, 36, 55.31, '3544498428');
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (8151921466, 6, 29.38, '2172961925');
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (1964349974, 29, 14.54, '6835569755');
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (8467013135, 66, 89.01, '2500725428');
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (5659865292, 46, 97.39, '0898289915');
 
-insert into Product (ProductId, Price, Name, Purchaser_ID) values ('8777303655', 97.96, 'Temp', '5805369648');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values ('3475769191', 38.14, 'Hatity', '5608109853');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values ('2604473318', 2.84, 'Y-find', '1630689136');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values ('3207670379', 70.66, 'Andalax', '6661792534');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values ('2361095623', 72.18, 'Matsoft', '1216526389');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values ('5200881801', 54.85, 'Zontrax', '9584544611');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values ('8574965176', 2.69, 'Tresom', '9497151660');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values ('2623741306', 13.14, 'Zamit', '6810500608');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values ('7602232225', 54.81, 'Tres-Zap', '4195742183');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values ('1303197542', 3.21, 'Redhold', '1314293009');
+insert into Product (ProductId, Price, Name, Purchaser_ID) values (8777303655, 97.96, 'Temp', '5805369648');
+insert into Product (ProductId, Price, Name, Purchaser_ID) values (3475769191, 38.14, 'Hatity', '5608109853');
+insert into Product (ProductId, Price, Name, Purchaser_ID) values (2604473318, 2.84, 'Y-find', '1630689136');
+insert into Product (ProductId, Price, Name, Purchaser_ID) values (3207670379, 70.66, 'Andalax', '6661792534');
+insert into Product (ProductId, Price, Name, Purchaser_ID) values (2361095623, 72.18, 'Matsoft', '1216526389');
+insert into Product (ProductId, Price, Name, Purchaser_ID) values (5200881801, 54.85, 'Zontrax', '9584544611');
+insert into Product (ProductId, Price, Name, Purchaser_ID) values (8574965176, 2.69, 'Tresom', '9497151660');
+insert into Product (ProductId, Price, Name, Purchaser_ID) values (2623741306, 13.14, 'Zamit', '6810500608');
+insert into Product (ProductId, Price, Name, Purchaser_ID) values (7602232225, 54.81, 'Tres-Zap', '4195742183');
+insert into Product (ProductId, Price, Name, Purchaser_ID) values (1303197542, 3.21, 'Redhold', '1314293009');
 
-insert into Creators (CreatorID, ItemID) values ('2174046810', '6504441501');
-insert into Creators (CreatorID, ItemID) values ('7701633399', '1079760205');
-insert into Creators (CreatorID, ItemID) values ('2514317324', '8761426274');
-insert into Creators (CreatorID, ItemID) values ('6826840310', '4390618446');
-insert into Creators (CreatorID, ItemID) values ('8571334119', '9880547441');
-insert into Creators (CreatorID, ItemID) values ('8523731197', '6991595102');
-insert into Creators (CreatorID, ItemID) values ('8297171667', '4046300151');
-insert into Creators (CreatorID, ItemID) values ('5020150843', '3279156025');
-insert into Creators (CreatorID, ItemID) values ('0965690107', '3908587248');
-insert into Creators (CreatorID, ItemID) values ('4288704729', '2059385417');
+insert into Creators (CreatorID, ItemID) values (2174046810, 6504441501);
+insert into Creators (CreatorID, ItemID) values (7701633399, 1079760205);
+insert into Creators (CreatorID, ItemID) values (2514317324, 8761426274);
+insert into Creators (CreatorID, ItemID) values (6826840310, 4390618446);
+insert into Creators (CreatorID, ItemID) values (8571334119, 9880547441);
+insert into Creators (CreatorID, ItemID) values (8523731197, 6991595102);
+insert into Creators (CreatorID, ItemID) values (8297171667, 4046300151);
+insert into Creators (CreatorID, ItemID) values (5020150843, 3279156025);
+insert into Creators (CreatorID, ItemID) values (0965690107, 3908587248);
+insert into Creators (CreatorID, ItemID) values (4288704729, 2059385417);
 
 insert into Manufacturer (ManufacturerID, Country, State_Or_Territory, Email, PhoneNum, First_Name, Last_Name) values ('9473247069', 'China', null, 'smotherwell0@un.org', '725-835-6598', 'Sid', 'Motherwell');
 insert into Manufacturer (ManufacturerID, Country, State_Or_Territory, Email, PhoneNum, First_Name, Last_Name) values ('3384934458', 'Philippines', null, 'ogeach1@google.it', '640-412-6354', 'Ozzy', 'Geach');

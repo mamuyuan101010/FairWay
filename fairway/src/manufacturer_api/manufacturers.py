@@ -10,14 +10,13 @@ manufacturers = Blueprint('manufacturers', __name__)
 def add_manufacturer():
     current_app.logger.info(request.form)
     cursor = db.get_db().cursor()
-    manufacturerID = request.form['manufacturerID'] 
     country = request.form['country']
     state = request.form['state']
     email = request.form['email'] 
     phoneNumber = request.form['phoneNumber'] 
     firstname = request.form['firstName'] 
     lastname = request.form['lastName']
-    query = f'INSERT INTO Manufacturer(ManufacturerID, Country, State_Or_Territory, Email, PhoneNum, First_Name, Last_Name) VALUES(\"{manufacturerID}\", \"{country}\", \"{state}\", \"{email}\", \"phoneNumber\", \"firstName\", \"lastname\")' 
+    query = f'INSERT INTO Manufacturer(Country, State_Or_Territory, Email, PhoneNum, First_Name, Last_Name) VALUES(\"{country}\", \"{state}\", \"{email}\", \"phoneNumber\", \"firstName\", \"lastname\")' 
     cursor.execute(query)
     db.get_db().commit()
     return "Success!"
