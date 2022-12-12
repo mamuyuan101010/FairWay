@@ -1,9 +1,8 @@
 from flask import Blueprint, request, jsonify, make_response
-import json
 from src import db
 
-
 manufacturers = Blueprint('manufacturers', __name__)
+
 
 # Add a manufacturer to the DB
 @manufacturers.route('/manufacturers_update', methods=['POST'])
@@ -16,7 +15,7 @@ def add_manufacturer():
     phoneNumber = request.form['phoneNumber'] 
     firstname = request.form['firstName'] 
     lastname = request.form['lastName']
-    query = f'INSERT INTO Manufacturer(Country, State_Or_Territory, Email, PhoneNum, First_Name, Last_Name) VALUES(\"{country}\", \"{state}\", \"{email}\", \"phoneNumber\", \"firstName\", \"lastname\")' 
+    query = f'INSERT INTO Manufacturer(Country, State_Or_Territory, Email, PhoneNum, First_Name, Last_Name) VALUES(\"{country}\", \"{state}\", \"{email}\", \"{phoneNumber}\", \"{firstname}\", \"{lastname}\")' 
     cursor.execute(query)
     db.get_db().commit()
     return "Success!"
