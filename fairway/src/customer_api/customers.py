@@ -13,9 +13,11 @@ def customer_order():
     productID = request.form['prodID']
     quantity = request.form['quant']
     query = f'INSERT INTO Invoice(Country, State, Street, City, Customer_ID) VALUES((select Country, State, Street, City from Customer where Customer.CustID = {customerID}), \"{customerID}\")'
-    query2 = f'INSERT INTO InvoiceLine(Quantity, UnitPrice, Receipt_ID VALUES(\"{quantity}\", (select Price from Product where Product.ProductId = {productID}), (select max(Invoice_LineID) from InvoiceLine)'
-    query3 = f'INSERT INTO Product() VALUES()'
-
+    query2 = f'INSERT INTO InvoiceLine(Quantity, UnitPrice, Receipt_ID, Product_ID) VALUES(\"{quantity}\", (select Price from Product where Product.ProductId = {productID}), (select max(Invoice_LineID) from InvoiceLine), \"{productID}\")'
+    cursor.execute(query)
+    cursor.execute(query2)
+    db.get_db().commit()
+    return "Success!"
 
 #could use to get an invoice for a particular invoice number
 # Get customer detail for customer with particular userID
