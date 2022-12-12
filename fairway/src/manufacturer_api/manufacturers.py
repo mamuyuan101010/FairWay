@@ -6,16 +6,18 @@ from src import db
 manufacturers = Blueprint('manufacturers', __name__)
 
 # Add a manufacturer to the DB
-@manufacturers.route('/manufacturers', methods=['POST'])
+@manufacturers.route('/manufacturers_update', methods=['POST'])
 def add_manufacturer():
     current_app.logger.info(request.form)
     cursor = db.get_db().cursor()
     manufacturerID = request.form['manufacturerID'] 
-    phoneNumber = request.form['phoneNumber'] 
+    country = request.form['country']
+    state = request.form['state']
     email = request.form['email'] 
+    phoneNumber = request.form['phoneNumber'] 
     firstname = request.form['firstName'] 
     lastname = request.form['lastName']
-    query = f'INSERT INTO manufacturers(manufacturerID, phoneNumber, email, fname, lname) VALUES(\"{manufacturerID}", \"{phoneNumber}", \"{email}", \"{firstName}", \"{lastName}" )' 
+    query = f'INSERT INTO Manufacturer(ManufacturerID, Country, State_Or_Territory, Email, PhoneNum, First_Name, Last_Name) VALUES(\"{manufacturerID}\", \"{country}\", \"{state}\", \"{email}\", \"phoneNumber\", \"firstName\", \"lastname\")' 
     cursor.execute(query)
     db.get_db().commit()
     return "Success!"
@@ -24,8 +26,7 @@ def add_manufacturer():
 @manufacturers.route('/manufacturers', methods=['GET'])
 def get_manufacturers():
     cursor = db.get_db().cursor()
-    cursor.execute('select manufacturerID, phoneNumber, email, fname, \
-        lname from manufacturers')
+    cursor.execute('select ManufacturerID, PhoneNum, Email, First_Name, Last_Name from Manufacturer')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -37,10 +38,10 @@ def get_manufacturers():
     return the_response
 
 # Get manufacturer detail for manufacturer with particular userID
-@manufacturers.route('/manufacturers/<manufacturerID>', methods=['GET'])
-def get_manufacturer(manufacturerID):
+@manufacturers.route('/manufacturers/<userID>', methods=['GET'])
+def get_manufacturer(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from manufacturers where manufacturerID = {0}'.format(userID))
+    cursor.execute('select * from Manufacturer where ManufacturerID = {0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
