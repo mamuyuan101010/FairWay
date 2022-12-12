@@ -21,6 +21,6 @@ RUN pip install -r requirements.txt
 EXPOSE 4000
 
 # tell the container to run the flask application
-# CMD ["python", "src/app.py"]
-CMD ["python", "app.py"]
+# CMD ["python", "src/fairway.py"]
+CMD ["python", "fairway.py"]
 
