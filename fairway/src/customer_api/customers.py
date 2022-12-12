@@ -13,7 +13,8 @@ def customer_order():
     productID = request.form['prodID']
     quantity = request.form['quant']
     query = f'INSERT INTO Invoice(Country, State, Street, City, Customer_ID) VALUES((select Country, State, Street, City from Customer where Customer.CustID = {customerID}), \"{customerID}\")'
-    query2 = f'INSERT INTO InvoiceLine(Quantity, UnitPrice, Receipt_ID VALUES(\"{quantity}\", (select Price from Product where Product.ProductId = {productID}), ))'
+    query2 = f'INSERT INTO InvoiceLine(Quantity, UnitPrice, Receipt_ID VALUES(\"{quantity}\", (select Price from Product where Product.ProductId = {productID}), (select max(Invoice_LineID) from InvoiceLine)'
+    query3 = f'INSERT INTO Product() VALUES()'
 
 
 #could use to get an invoice for a particular invoice number

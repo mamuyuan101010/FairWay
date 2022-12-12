@@ -1,15 +1,3 @@
-CREATE DATABASE FairWay;
-
-SHOW DATABASES;
-
-CREATE USER 'CEO' @ '%'
-    IDENTIFIED BY 'abc123';
-
-GRANT ALL PRIVILEGES ON FairWay.* TO 'CEO' @ '%';
-
-USE FairWay;
-
-
 CREATE TABLE Employee (
     employee_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     Date_Been_Employed DATE NOT NULL,
@@ -40,8 +28,7 @@ CREATE TABLE Customer (
 
 CREATE TABLE Invoice (
     InvoiceID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    Purchase_Date DATETIME DEFAULT CURRENT_TIMESTAMP
-                      ON UPDATE CURRENT_TIMESTAMP,
+    Purchase_Date DATETIME DEFAULT CURRENT_TIMESTAMP,
     Country TEXT NOT NULL,
     State TEXT,
     Street TEXT NOT NULL,
@@ -55,15 +42,15 @@ CREATE TABLE InvoiceLine (
     Quantity UNSIGNED INTEGER NOT NULL,
     UnitPrice UNSIGNED DECIMAL(3,2) NOT NULL,
     Receipt_ID UNSIGNED INTEGER NOT NULL,
-    FOREIGN KEY (Receipt_ID) REFERENCES Invoice(InvoiceID)
+    Product_ID UNSIGNED INTEGER NOT NULL,
+    FOREIGN KEY (Receipt_ID) REFERENCES Invoice(InvoiceID),
+    FOREIGN KEY (Product_ID) REFERENCES Product(ProductId)
 );
 
 CREATE TABLE Product (
     ProductId INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     Price UNSIGNED DECIMAL(3,2) NOT NULL,
-    Name TEXT NOT NULL UNIQUE,
-    Purchaser_ID UNSIGNED INTEGER NOT NULL,
-    FOREIGN KEY (Purchaser_ID) REFERENCES InvoiceLine(Invoice_LineID)
+    Name TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE Creators (
@@ -116,27 +103,27 @@ insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Cus
 insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (1546416761, '11/6/2022', 'United States', 'Florida', 'Kingsford', 'Tampa', '8873823243');
 insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (6721693740, '12/21/2021', 'United States', 'Washington', '3rd', 'Lakewood', '8175274402');
 
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (8783000960, 85, 77.48, '1341903065');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (9042357718, 63, 78.35, '5490744103');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (6539119653, 80, 13.4, '6748545864');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (0596087865, 9, 86.6, '9078999092');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (7757395069, 33, 43.94, '1521302192');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (3726370269, 36, 55.31, '3544498428');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (8151921466, 6, 29.38, '2172961925');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (1964349974, 29, 14.54, '6835569755');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (8467013135, 66, 89.01, '2500725428');
-insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID) values (5659865292, 46, 97.39, '0898289915');
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID, Product_ID) values (8783000960, 85, 77.48, '1341903065', 3475769191);
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID, Product_ID) values (9042357718, 63, 78.35, '5490744103', 3207670379);
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID, Product_ID) values (6539119653, 80, 13.4, '6748545864', 7602232225);
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID, Product_ID) values (0596087865, 9, 86.6, '9078999092', 3207670379);
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID, Product_ID) values (7757395069, 33, 43.94, '1521302192', 2604473318);
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID, Product_ID) values (3726370269, 36, 55.31, '3544498428', 5200881801);
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID, Product_ID) values (8151921466, 6, 29.38, '2172961925', 3207670379);
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID, Product_ID) values (1964349974, 29, 14.54, '6835569755', 5200881801);
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID, Product_ID) values (8467013135, 66, 89.01, '2500725428', 7602232225);
+insert into InvoiceLine (Invoice_LineID, Quantity, UnitPrice, Receipt_ID, Product_ID) values (5659865292, 46, 97.39, '0898289915', 3207670379);
 
-insert into Product (ProductId, Price, Name, Purchaser_ID) values (8777303655, 97.96, 'Temp', '5805369648');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values (3475769191, 38.14, 'Hatity', '5608109853');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values (2604473318, 2.84, 'Y-find', '1630689136');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values (3207670379, 70.66, 'Andalax', '6661792534');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values (2361095623, 72.18, 'Matsoft', '1216526389');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values (5200881801, 54.85, 'Zontrax', '9584544611');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values (8574965176, 2.69, 'Tresom', '9497151660');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values (2623741306, 13.14, 'Zamit', '6810500608');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values (7602232225, 54.81, 'Tres-Zap', '4195742183');
-insert into Product (ProductId, Price, Name, Purchaser_ID) values (1303197542, 3.21, 'Redhold', '1314293009');
+insert into Product (ProductId, Price, Name) values (8777303655, 97.96, 'Temp');
+insert into Product (ProductId, Price, Name) values (3475769191, 38.14, 'Hatity');
+insert into Product (ProductId, Price, Name) values (2604473318, 2.84, 'Y-find');
+insert into Product (ProductId, Price, Name) values (3207670379, 70.66, 'Andalax');
+insert into Product (ProductId, Price, Name) values (2361095623, 72.18, 'Matsoft');
+insert into Product (ProductId, Price, Name) values (5200881801, 54.85, 'Zontrax');
+insert into Product (ProductId, Price, Name) values (8574965176, 2.69, 'Tresom');
+insert into Product (ProductId, Price, Name) values (2623741306, 13.14, 'Zamit');
+insert into Product (ProductId, Price, Name) values (7602232225, 54.81, 'Tres-Zap');
+insert into Product (ProductId, Price, Name) values (1303197542, 3.21, 'Redhold');
 
 insert into Creators (CreatorID, ItemID) values (2174046810, 6504441501);
 insert into Creators (CreatorID, ItemID) values (7701633399, 1079760205);
