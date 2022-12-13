@@ -27,7 +27,7 @@ def get_customer(userID):
 @employees.route('/employees/orderdetail')
 def get_order_detail():
    cursor = db.get_db().cursor()
-   query = f'select InvoiceID, Purchase_Date, invoice.Country, invoice.State, invoice.City, Customer_ID, First_Name, Last_Name, Product_ID, Name, Quantity, UnitPrice, (UnitPrice * InvoiceLine.Quantity) as total from invoice inner join Customer on Invoice.Customer_ID = Customer.CustID inner join InvoiceLine on Invoice.InvoiceID = InvoiceLine.Receipt_ID inner join Product on InvoiceLine.Product_ID = Product.ProductId order by InvoiceID;'
+   query = f'select InvoiceID, Purchase_Date, Invoice.Country, Invoice.State, Invoice.City, Customer_ID, First_Name, Last_Name, Product_ID, Name, Quantity, UnitPrice, (UnitPrice * InvoiceLine.Quantity) as total from Invoice inner join Customer on Invoice.Customer_ID = Customer.CustID inner join InvoiceLine on Invoice.InvoiceID = InvoiceLine.Receipt_ID inner join Product on InvoiceLine.Product_ID = Product.ProductId order by InvoiceID;'
    cursor.execute(query)
    row_headers = [x[0] for x in cursor.description]
    json_data = []
