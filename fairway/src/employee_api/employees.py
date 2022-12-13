@@ -36,6 +36,18 @@ def get_order_detail():
        json_data.append(dict(zip(row_headers, row)))
    return jsonify(json_data)
 
+@employees.route('/employees/customers')
+def get_customer_detail():
+   cursor = db.get_db().cursor()
+   query = f'select First_Name, Last_Name, CustID from Customer ORDER BY First_Name'
+   cursor.execute(query)
+   row_headers = [x[0] for x in cursor.description]
+   json_data = []
+   theData = cursor.fetchall()
+   for row in theData:
+       json_data.append(dict(zip(row_headers, row)))
+   return jsonify(json_data)
+
 @employees.route('/employees_del', methods=['POST'])
 def delete_order():
     current_app.logger.info(request.form)
