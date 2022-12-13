@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify, make_response, current_app
 import json
 from src import db
 
@@ -36,14 +36,15 @@ def get_order_detail():
        json_data.append(dict(zip(row_headers, row)))
    return jsonify(json_data)
 
-@employees.route('/employees/deleteorder')
+@employees.route('/employees_del', methods=['POST'])
 def delete_order():
     current_app.logger.info(request.form)
     cursor = db.get_db().cursor()
-    orderID = request.form['orderID']
+    orderID = request.form['odID']
     query = f'delete from Invoice where Invoice.InvoiceID = {orderID}'
     query2 = f'delete from InvoiceLine where InvoiceLine.Receipt_ID = {orderID}'
     cursor.execute(query)
+    cursor.execute(query2)
     db.get_db().commit()
     return "Success!"
 

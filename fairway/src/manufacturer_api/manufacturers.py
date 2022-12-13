@@ -1,11 +1,11 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify, make_response, current_app
 import json
 from src import db
 
 manufacturers = Blueprint('manufacturers', __name__)
 
 # Add a manufacturer to the DB
-@manufacturers.route('/manufacturers/add', methods=['POST'])
+@manufacturers.route('/manufacturers_update', methods=['POST'])
 def add_manufacturer():
     current_app.logger.info(request.form)
     cursor = db.get_db().cursor()
