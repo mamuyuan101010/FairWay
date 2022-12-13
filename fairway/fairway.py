@@ -2,12 +2,12 @@
 # Main application interface
 ###
 
-# import the create app function 
+# import the create fairway function 
 # that lives in src/__init__.py
-from src import create_app
+from src import create_fairway
 
 # create the app object
-app = create_app()
+app = create_fairway()
 
 if __name__ == '__main__':
     # we want to run in debug mode (for hot reloading) 

@@ -13,8 +13,8 @@ def add_manufacturer():
     manufacturerID = request.form['manufacturerID'] 
     phoneNumber = request.form['phoneNumber'] 
     email = request.form['email'] 
-    firstName = request.form['firstName'] 
-    lastName = request.form['lastName']
+    firstname = request.form['firstName'] 
+    lastname = request.form['lastName']
     query = f'INSERT INTO manufacturers(manufacturerID, phoneNumber, email, fname, lname) VALUES(\"{manufacturerID}", \"{phoneNumber}", \"{email}", \"{firstName}", \"{lastName}" )' 
     cursor.execute(query)
     db.get_db().commit()
@@ -40,7 +40,7 @@ def get_manufacturers():
 @manufacturers.route('/manufacturers/<manufacturerID>', methods=['GET'])
 def get_manufacturer(manufacturerID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from manufacturers where manufacturerID = {0}'.format(manufacturerID))
+    cursor.execute('select * from manufacturers where manufacturerID = {0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
