@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\fairway\\src",
+    "\\fairway\\src\\customer_api",
+    "\\fairway\\src\\employee_api",
+    "\\fairway\\src\\manufacturer_api"
   ],
+  "SelectedNode": "\\fairway",
   "PreviewInSolutionExplorer": false
 }

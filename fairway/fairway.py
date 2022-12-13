@@ -3,9 +3,7 @@
 # import the Flask framework
 from flask import Flask, jsonify
 from flaskext.mysql import MySQL
-from src.customer_api.customers import customers_blueprint
-from src.employee_api.employees import employees_blueprint
-from src.manufacturer_api.manufacturers import manufacturers_blueprint
+
 
 # create a flask object
 app = Flask(__name__)
@@ -22,10 +20,7 @@ app.config['MYSQL_DATABASE_DB'] = ' FairWay'
 db_connection = MySQL()
 db_connection.init_app(app)
 
-# register
-app.register_blueprint(customers_blueprint, url_prefix='/cust')
-app.register_blueprint(employees_blueprint, url_prefix='/emp')
-app.register_blueprint(manufacturers_blueprint, url_prefix='/mft')
+
 
 @app.route("/")
 def main_webpage():
