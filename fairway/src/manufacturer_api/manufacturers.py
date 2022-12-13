@@ -49,3 +49,15 @@ def get_manufacturer(userID):
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
+
+# update product
+@manufacturers.route('/manufacturers_productupdate', methods=['POST'])
+def add_product():
+    current_app.logger.info(request.form)
+    cursor = db.get_db().cursor()
+    name = request.form['name']
+    price = request.form['price']
+    query = f'INSERT INTO Product(Price, Name) VALUES(\"{price}\", \"{name}\")' 
+    cursor.execute(query)
+    db.get_db().commit()
+    return "Success!"

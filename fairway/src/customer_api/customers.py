@@ -11,8 +11,12 @@ def customer_order():
     customerID = request.form['custID']
     productID = request.form['prodID']
     quantity = request.form['quant']
-    query = f'INSERT INTO Invoice(Country, State, Street, City, Customer_ID) VALUES((select Country, State, Street, City from Customer where Customer.CustID = {customerID}), \"{customerID}\")'
-    query2 = f'INSERT INTO InvoiceLine(Quantity, UnitPrice, Receipt_ID, Product_ID) VALUES(\"{quantity}\", (select Price from Product where Product.ProductId = {productID}), (select max(Invoice_LineID) from InvoiceLine), \"{productID}\")'
+    query = f'INSERT INTO Invoice(Country, State, Street, City, Customer_ID)\
+    VALUES((select Country, State, Street, City from Customer where Customer.CustID \
+    = {customerID}), \"{customerID}\")'
+    query2 = f'INSERT INTO InvoiceLine(Quantity, UnitPrice, Receipt_ID, Product_ID) \
+    VALUES(\"{quantity}\", (select Price from Product where Product.ProductId \
+    = {productID}), (select max(Invoice_LineID) from InvoiceLine), \"{productID}\")'
     cursor.execute(query)
     cursor.execute(query2)
     db.get_db().commit()
@@ -44,3 +48,27 @@ def show_product():
    for row in theData:
        json_data.append(dict(zip(row_headers, row)))
    return jsonify(json_data)
+
+@customers.route('/customers_registration', methods=['POST'])
+def customer_registration():
+    current_app.logger.info(request.form)
+    cursor = db.get_db().cursor
+    email = request.form['email']
+    phoneNum = request.form['phoneNum']
+    firstN = request.form['firstName']
+    lastN = request.form['lastName']
+    BirthMonth = request.form['BirthMonth']
+    BirthDate = request.form['BirthDate']
+    BirthYear = request.form['BirthYear']
+    StreetAdd = request.form['StreetAddress']
+    city = request.form['city']
+    state = request.form['state']
+    country = request.form['country']
+    zipcode = request.form['zipcode']
+    query = f'INSERT INTO Customer(Email, Phone_Number, First_Name, Last_Name, Birth_Month, \
+    Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State) VALUES(\"{email}\", \"{phoneNum}\" \
+    , \"{firstN}\", \"{lastN}\", \"{BirthMonth}\", \"{BirthDate}\", \"{BirthYear}\", \"{StreetAdd}\", \
+    \"{city}\", \"{state}\", \"{country}\", \"{zipcode}\")'
+    cursor.execute(query)
+    db.get_db().commit()
+    return "Success!"
