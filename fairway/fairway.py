@@ -1,41 +1,13 @@
-# import the create app function 
+###
+# Main application interface
+###
+
+# import the create fairway function 
 # that lives in src/__init__.py
-# import the Flask framework
-from flask import Flask, jsonify
-from flaskext.mysql import MySQL
+from src import create_fairway
 
-
-# create a flask object
-app = Flask(__name__)
-
-# add db config variables to the app object
-app.config['MYSQL_DATABASE_HOST'] = 'db'
-app.config['MYSQL_DATABASE_PORT'] = 3306
-app.config['MYSQL_DATABASE_USER'] = 'CEO'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'abc123'
-app.config['MYSQL_DATABASE_DB'] = ' FairWay'
-
-# create the MySQL object and connect it to the 
-# Flask app object
-db_connection = MySQL()
-db_connection.init_app(app)
-
-
-
-@app.route("/")
-def main_webpage():
-    return f'<h1>Welcome to Fairway, a way for fair trading</h1>'
-
-@app.route('/shopping')
-def db_testing():
-   cur = db_connection.get_db().cursor()
-   cur.execute('select * from Product')
-   row_headers = [x[0] for x in cur.description]
-   json_data = []
-   theData = cur.fetchall()
-   for row in theData:
-       json_data.append(dict(zip(row_headers, row)))
-   return jsonify(json_data)
+# create the app object
+app = create_fairway()
 
 if __name__ == '__main__':
     # we want to run in debug mode (for hot reloading) 

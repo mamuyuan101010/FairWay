@@ -26,9 +26,9 @@ def create_fairway():
 
     # Import the various routes
     from src.views import views
-    from src.customer_api.customers import customers_blueprint
-    from src.employee_api.employees import employees_blueprint
-    from src.manufacturer_api.manufacturers import manufacturers_blueprint
+    from src.customer_api.customers import customers
+    from src.employee_api.employees import employees
+    from src.manufacturer_api.manufacturers import manufacturers
 
     # Register the routes that we just imported so they can be properly handled
     app.register_blueprint(views,       url_prefix='/classic')

@@ -1,11 +1,8 @@
-REATE DATABASE FairWay;
+CREATE DATABASE FairWay;
 
 SHOW DATABASES;
 
-CREATE USER 'CEO' @ '%'
-    IDENTIFIED BY 'abc123';
-
-GRANT ALL PRIVILEGES ON FairWay.* TO 'CEO' @ '%';
+GRANT ALL PRIVILEGES ON FairWay.* TO 'CEO'@'%';
 flush privileges;
 
 USE FairWay;
@@ -13,7 +10,7 @@ USE FairWay;
 CREATE TABLE Employee (
     employee_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     Date_Been_Employed DATE NOT NULL,
-    Email_Address TEXT NOT NULL UNIQUE,
+    Email_Address char(40) NOT NULL UNIQUE,
     First_Name char(40) NOT NULL,
     Last_Name char(40) NOT NULL,
     Supervisor_id INT NOT NULL,
