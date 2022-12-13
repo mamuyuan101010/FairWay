@@ -1,11 +1,9 @@
-CREATE DATABASE FairWay;
+CREATE DATABASE FairWayProtoType;
 
-SHOW DATABASES;
+USE FairWayProtoType;
 
-GRANT ALL PRIVILEGES ON FairWay.* TO 'CEO';
+GRANT ALL PRIVILEGES ON FairWayProtoType.* TO 'CEO'@'%';
 flush privileges;
-
-USE FairWay;
 
 CREATE TABLE Employee (
     employee_id BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
