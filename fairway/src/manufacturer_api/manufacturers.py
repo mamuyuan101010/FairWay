@@ -2,30 +2,28 @@ from flask import Blueprint, request, jsonify, make_response
 import json
 from src import db
 
-manufacturers = Blueprint('manufacturers', __name__)
-
+manufacturer = Blueprint('manufacturer_blueprint', __name__)
 
 # Add a manufacturer to the DB
-@manufacturers.route('/manufacturers_update', methods=['POST'])
+@manufacturer.route('/manufacturer/add', methods=['POST'])
 def add_manufacturer():
-    current_app.logger.info(request.form)
     cursor = db.get_db().cursor()
-    country = request.form['country']
-    state = request.form['state']
-    email = request.form['email'] 
+    manufacturerID = request.form['manufacturerID'] 
     phoneNumber = request.form['phoneNumber'] 
-    firstname = request.form['firstName'] 
-    lastname = request.form['lastName']
-    query = f'INSERT INTO Manufacturer(Country, State_Or_Territory, Email, PhoneNum, First_Name, Last_Name) VALUES(\"{country}\", \"{state}\", \"{email}\", \"{phoneNumber}\", \"{firstname}\", \"{lastname}\")' 
+    email = request.form['email'] 
+    firstName = request.form['firstName'] 
+    lastName = request.form['lastName']
+    query = f'INSERT INTO manufacturer(manufacturerID, phoneNumber, email, fname, lname) VALUES(\"{manufacturerID}", \"{phoneNumber}", \"{email}", \"{firstName}", \"{lastName}" )' 
     cursor.execute(query)
     db.get_db().commit()
     return "Success!"
 
-# Get all manufacturers from the DB
-@manufacturers.route('/manufacturers', methods=['GET'])
-def get_manufacturers():
+# Get all manufacturer from the DB
+@manufacturer.route('/manufacturer', methods=['GET'])
+def get_manufacturer():
     cursor = db.get_db().cursor()
-    cursor.execute('select ManufacturerID, PhoneNum, Email, First_Name, Last_Name from Manufacturer')
+    cursor.execute('select manufacturerID, phoneNumber, email, fname, \
+        lname from manufacturer')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -36,11 +34,11 @@ def get_manufacturers():
     the_response.mimetype = 'application/json'
     return the_response
 
-# Get manufacturer detail for manufacturer with particular userID
-@manufacturers.route('/manufacturers/<userID>', methods=['GET'])
-def get_manufacturer(userID):
+# Get manufacturer detail for manufacturer with particular manufacturerID
+@manufacturer.route('/manufacturer/<manufacturerID>', methods=['GET'])
+def get_manufacturer(manufacturerID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from Manufacturer where ManufacturerID = {0}'.format(userID))
+    cursor.execute('select * from manufacturer where manufacturerID = {0}'.format(manufacturerID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
