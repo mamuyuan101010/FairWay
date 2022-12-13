@@ -29,9 +29,7 @@ CREATE TABLE Customer (
     City TEXT NOT NULL,
     Zip_Code INT NOT NULL,
     State TEXT NOT NULL,
-    Support_Rep_id BIGINT NOT NULL,
-    PRIMARY KEY (CustID),
-    FOREIGN KEY (Support_Rep_id) REFERENCES Employee(employee_id)
+    PRIMARY KEY (CustID)
 );
 
 CREATE TABLE Invoice (
@@ -43,6 +41,17 @@ CREATE TABLE Invoice (
     City TEXT NOT NULL,
     Customer_ID BIGINT NOT NULL,
     FOREIGN KEY (Customer_ID) REFERENCES Customer(CustID)
+);
+
+CREATE TABLE Help_Request (
+    RequestID BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    requestSum TEXT,
+    Customer_ID BIGINT NOT NULL,
+    Customer_Service_ID BIGINT NOT NULL,
+    Order_ID BIGINT NOT NULL,
+    FOREIGN KEY (Customer_ID) REFERENCES Customer(CustID),
+    FOREIGN KEY (Customer_Service_ID) REFERENCES Employee(employee_id),
+    FOREIGN KEY (Order_ID) REFERENCES Invoice(InvoiceID)
 );
 
 CREATE TABLE Product (
@@ -90,16 +99,16 @@ insert into Employee (employee_id, Date_Been_Employed, Email_Address, First_Name
 insert into Employee (employee_id, Date_Been_Employed, Email_Address, First_Name, Last_Name, Supervisor_id) values (7996014494, '1/20/2022', 'sheninghem8@admin.ch', 'Siegfried', 'Heninghem', 9508797385);
 insert into Employee (employee_id, Date_Been_Employed, Email_Address, First_Name, Last_Name, Supervisor_id) values (9320570308, '10/4/2022', 'igladtbach9@bloglines.com', 'Irma', 'Gladtbach', 9508797385);
 
-insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State, Support_Rep_id) values ('0576233818', 'hgratton0@mashable.com', '334-298-3882', 'Hilda', 'Gratton', 6, 9, 2006, 'Dryden', 'United States', 'Birmingham', '6252025', 'Alabama', 6914924911);
-insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State, Support_Rep_id) values ('4342204366', 'dortas1@yahoo.com', '574-737-8502', 'Damian', 'Ortas', 6, 23, 1993, 'Kingsford', 'United States', 'South Bend', '6557532', 'Indiana', 7579396996);
-insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State, Support_Rep_id) values ('7018339376', 'mbraker2@joomla.org', '832-145-6415', 'Matthieu', 'Braker', 10, 14, 1985, 'Hayes', 'United States', 'Houston', '7587272', 'Texas', 9508797385);
-insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State, Support_Rep_id) values ('6136802201', 'hdurden3@people.com.cn', '682-293-9486', 'Horatia', 'Durden', 10, 13, 2019, 'Meadow Vale', 'United States', 'Fort Worth', '3650144', 'Texas', 7579396996);
-insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State, Support_Rep_id) values ('8346207528', 'gcote4@merriam-webster.com', '859-310-8660', 'Gnni', 'Cote', 5, 1, 1998, 'Crownhardt', 'United States', 'Lexington', '8312912', 'Kentucky', 9320570308);
-insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State, Support_Rep_id) values ('1350068223', 'cbrightie5@soup.io', '772-684-8989', 'Chaim', 'Brightie', 8, 12, 2016, 'Clemons', 'United States', 'Fort Pierce', '1027525', 'Florida', 7579396996);
-insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State, Support_Rep_id) values ('0949877970', 'egilkison6@t-online.de', '601-853-8268', 'Evvy', 'Gilkison', 4, 1, 1992, 'Maple Wood', 'United States', 'Jackson', '8799199', 'Mississippi', 9320570308);
-insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State, Support_Rep_id) values ('5373314290', 'ypuckinghorne7@multiply.com', '772-618-4904', 'Yance', 'Puckinghorne', 1, 5, 2005, 'Vahlen', 'United States', 'Fort Pierce', '3441864', 'Florida', 7579396996);
-insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State, Support_Rep_id) values ('3717830517', 'jgotobed8@economist.com', '210-130-3870', 'Joli', 'Gotobed', 11, 11, 2011, 'Haas', 'United States', 'San Antonio', '8374344', 'Texas', 9320570308);
-insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State, Support_Rep_id) values ('6378104203', 'rtruelock9@omniture.com', '713-939-0264', 'Rennie', 'Truelock', 7, 8, 2012, 'Onsgard', 'United States', 'Houston', '4788416', 'Texas', 9320570308);
+insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State) values ('0576233818', 'hgratton0@mashable.com', '334-298-3882', 'Hilda', 'Gratton', 6, 9, 2006, 'Dryden', 'United States', 'Birmingham', '6252025', 'Alabama');
+insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State) values ('4342204366', 'dortas1@yahoo.com', '574-737-8502', 'Damian', 'Ortas', 6, 23, 1993, 'Kingsford', 'United States', 'South Bend', '6557532', 'Indiana');
+insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State) values ('7018339376', 'mbraker2@joomla.org', '832-145-6415', 'Matthieu', 'Braker', 10, 14, 1985, 'Hayes', 'United States', 'Houston', '7587272', 'Texas');
+insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State) values ('6136802201', 'hdurden3@people.com.cn', '682-293-9486', 'Horatia', 'Durden', 10, 13, 2019, 'Meadow Vale', 'United States', 'Fort Worth', '3650144', 'Texas');
+insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State) values ('8346207528', 'gcote4@merriam-webster.com', '859-310-8660', 'Gnni', 'Cote', 5, 1, 1998, 'Crownhardt', 'United States', 'Lexington', '8312912', 'Kentucky');
+insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State) values ('1350068223', 'cbrightie5@soup.io', '772-684-8989', 'Chaim', 'Brightie', 8, 12, 2016, 'Clemons', 'United States', 'Fort Pierce', '1027525', 'Florida');
+insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State) values ('0949877970', 'egilkison6@t-online.de', '601-853-8268', 'Evvy', 'Gilkison', 4, 1, 1992, 'Maple Wood', 'United States', 'Jackson', '8799199', 'Mississippi');
+insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State) values ('5373314290', 'ypuckinghorne7@multiply.com', '772-618-4904', 'Yance', 'Puckinghorne', 1, 5, 2005, 'Vahlen', 'United States', 'Fort Pierce', '3441864', 'Florida');
+insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State) values ('3717830517', 'jgotobed8@economist.com', '210-130-3870', 'Joli', 'Gotobed', 11, 11, 2011, 'Haas', 'United States', 'San Antonio', '8374344', 'Texas');
+insert into Customer (CustID, Email, Phone_Number, First_Name, Last_Name, Birth_Month, Day_Of_Birth, Year_Of_Birth, Street, Country, City, Zip_Code, State) values ('6378104203', 'rtruelock9@omniture.com', '713-939-0264', 'Rennie', 'Truelock', 7, 8, 2012, 'Onsgard', 'United States', 'Houston', '4788416', 'Texas');
 
 insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (5641591974, '2022-04-24 12:32', 'United States', 'Maryland', 'Vahlen', 'Frederick', '0576233818');
 insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (0414917496, '2022-03-25 12:32', 'United States', 'Florida', 'Del Sol', 'Miami', '6136802201');
@@ -111,6 +120,12 @@ insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Cus
 insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (8863764876, '2022-05-04 12:32', 'United States', 'Texas', 'Muir', 'Houston', '8346207528');
 insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (1546416761, '2022-11-06 12:32', 'United States', 'Florida', 'Kingsford', 'Tampa', '0949877970');
 insert into Invoice (InvoiceID, Purchase_Date, Country, State, Street, City, Customer_ID) values (6721693740, '2021-12-21 12:32', 'United States', 'Washington', '3rd', 'Lakewood', '8346207528');
+
+insert into Help_Request (RequestID, requestSum, Customer_ID, Customer_Service_ID, Order_ID) values (798982534, 'I want to cancel the order. Please contact me by phonecall', 0949877970, 0977934777, 1881878623);
+insert into Help_Request (RequestID, requestSum, Customer_ID, Customer_Service_ID, Order_ID) values (632525453, 'I want to cancel my order. Please contact me in email', 0949877970, 7579396996, 1877930477);
+insert into Help_Request (RequestID, requestSum, Customer_ID, Customer_Service_ID, Order_ID) values (798032544, 'I want to return my order. Please contact me in email', 8346207528, 7996014494, 6721693740);
+insert into Help_Request (RequestID, requestSum, Customer_ID, Customer_Service_ID, Order_ID) values (325454325, 'I am interested on working at Fairway as a customer service. Can you give me some information about where to apply for this job? Please contact me in email', 8346207528, 0977934777, 6721693740);
+insert into Help_Request (RequestID, requestSum, Customer_ID, Customer_Service_ID, Order_ID) values (632413544, 'I accidentally cancel my previous order, can you recover the order for me? Please contact me by phonecall', 0949877970, 9320570308, 1546416761);
 
 insert into Product (ProductId, Price, Name) values (8777303655, 97.96, 'Temp');
 insert into Product (ProductId, Price, Name) values (3475769191, 38.14, 'Hatity');
