@@ -15,14 +15,3 @@ def home():
 @views.route('/aboutus')
 def tester():
     return "<h1>we are a online trading platform. Over there you can buy or sell product</h1>"
-
-@views.route('/shopping')
-def show_product():
-   cursor = db.get_db().cursor()
-   cursor.execute('select * from Product')
-   row_headers = [x[0] for x in cursor.description]
-   json_data = []
-   theData = cursor.fetchall()
-   for row in theData:
-       json_data.append(dict(zip(row_headers, row)))
-   return jsonify(json_data)

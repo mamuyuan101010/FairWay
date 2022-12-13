@@ -31,9 +31,9 @@ def create_fairway():
     from src.manufacturer_api.manufacturers import manufacturers
 
     # Register the routes that we just imported so they can be properly handled
-    app.register_blueprint(views,       url_prefix='/classic')
-    app.register_blueprint(customers,   url_prefix='/classic')
-    app.register_blueprint(employees,    url_prefix='/classic')
-    app.register_blueprint(manufacturers,    url_prefix='/classic')
+    app.register_blueprint(views,       url_prefix='/home')
+    app.register_blueprint(customers,   url_prefix='/home')
+    app.register_blueprint(employees,    url_prefix='/home')
+    app.register_blueprint(manufacturers,    url_prefix='/home')
 
     return app
