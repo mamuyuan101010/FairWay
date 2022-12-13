@@ -4,7 +4,6 @@ from src import db
 
 manufacturers = Blueprint('manufacturers', __name__)
 
-
 # Add a manufacturer to the DB
 @manufacturers.route('/manufacturers/add', methods=['POST'])
 def add_manufacturer():
