@@ -20,7 +20,7 @@ CREATE TABLE Customer (
     Email char(40) NOT NULL UNIQUE,
     Phone_Number char(20) NOT NULL UNIQUE,
     First_Name char(40) NOT NULL,
-    Last_Name = char(40) NOT NULL,
+    Last_Name char(40) NOT NULL,
     Birth_Month char(2) NOT NULL,
     Day_Of_Birth char(2) NOT NULL,
     Year_Of_Birth char(4) NOT NULL,
