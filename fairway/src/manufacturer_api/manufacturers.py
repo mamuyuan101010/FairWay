@@ -3,18 +3,17 @@ import json
 from src import db
 
 
-manufacturers = Blueprint('manufacturers', __name__)
+manufacturers = Blueprint('manufacturer_blueprint', __name__)
 
 # Add a manufacturer to the DB
 @manufacturers.route('/manufacturers', methods=['POST'])
 def add_manufacturer():
-    current_app.logger.info(request.form)
     cursor = db.get_db().cursor()
     manufacturerID = request.form['manufacturerID'] 
     phoneNumber = request.form['phoneNumber'] 
     email = request.form['email'] 
-    firstname = request.form['firstName'] 
-    lastname = request.form['lastName']
+    firstName = request.form['firstName'] 
+    lastName = request.form['lastName']
     query = f'INSERT INTO manufacturers(manufacturerID, phoneNumber, email, fname, lname) VALUES(\"{manufacturerID}", \"{phoneNumber}", \"{email}", \"{firstName}", \"{lastName}" )' 
     cursor.execute(query)
     db.get_db().commit()
@@ -36,11 +35,11 @@ def get_manufacturers():
     the_response.mimetype = 'application/json'
     return the_response
 
-# Get manufacturer detail for manufacturer with particular userID
+# Get manufacturer detail for manufacturer with particular manufacturerID
 @manufacturers.route('/manufacturers/<manufacturerID>', methods=['GET'])
 def get_manufacturer(manufacturerID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from manufacturers where manufacturerID = {0}'.format(userID))
+    cursor.execute('select * from manufacturers where manufacturerID = {0}'.format(manufacturerID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
