@@ -2,7 +2,7 @@ CREATE DATABASE FairWay;
 
 SHOW DATABASES;
 
-GRANT ALL PRIVILEGES ON FairWay.* TO 'CEO'@'%';
+GRANT ALL PRIVILEGES ON FairWay.* TO 'CEO';
 flush privileges;
 
 USE FairWay;
