@@ -40,7 +40,7 @@ def get_customer(userID):
     the_response.mimetype = 'application/json'
     return the_response
 
-@customers.route('/customers/shopping')
+@customers.route('/customers/shopping', methods=['GET'])
 def show_product():
    cursor = db.get_db().cursor()
    cursor.execute('select * from Product')
@@ -76,7 +76,7 @@ def customer_registration():
     return "Success!"
 
 
-@customers.route('/customers_registration', methods=['POST'])
+@customers.route('/customers_help', methods=['POST'])
 def customer_help():
     current_app.logger.info(request.form)
     cursor = db.get_db().cursor

@@ -24,7 +24,7 @@ def get_customer(userID):
     the_response.mimetype = 'application/json'
     return the_response
 
-@employees.route('/employees/orderdetail')
+@employees.route('/employees/orderdetail', methods=['GET'])
 def get_order_detail():
    cursor = db.get_db().cursor()
    query = f'select InvoiceID, Purchase_Date, Invoice.Country, Invoice.State, Invoice.City, Customer_ID, First_Name, Last_Name, Product_ID, Name, Quantity, UnitPrice, (UnitPrice * InvoiceLine.Quantity) as total from Invoice inner join Customer on Invoice.Customer_ID = Customer.CustID inner join InvoiceLine on Invoice.InvoiceID = InvoiceLine.Receipt_ID inner join Product on InvoiceLine.Product_ID = Product.ProductId order by InvoiceID'
@@ -36,7 +36,7 @@ def get_order_detail():
        json_data.append(dict(zip(row_headers, row)))
    return jsonify(json_data)
 
-@employees.route('/employees/customers')
+@employees.route('/employees/customers', methods=['GET'])
 def get_customer_detail():
    cursor = db.get_db().cursor()
    query = f'select First_Name, Last_Name, CustID from Customer ORDER BY First_Name'
@@ -60,7 +60,7 @@ def delete_order():
     db.get_db().commit()
     return "Success!"
 
-@employees.route('/employees/employeedetail')
+@employees.route('/employees/employeedetail', methods=['GET'])
 def show_employee():
    cursor = db.get_db().cursor()
    query = f'select * from Employee'
@@ -76,7 +76,7 @@ def show_employee():
 def update_employee():
     return "<h1>Delete a employee or add a new employee</h1>"
 
-@employees.route('/employees/updateemployee/add')
+@employees.route('/employees/updateemployee/add', methods=['POST'])
 def add_employee():
     current_app.logger.info(request.form)
     cursor = db.get_db().cursor()
@@ -90,7 +90,7 @@ def add_employee():
     db.get_db().commit()
     return "Success!"
 
-@employees.route('/employees/updateemployee/delete')
+@employees.route('/employees/updateemployee/delete', methods=['POST'])
 def delete_employee():
     current_app.logger.info(request.form)
     cursor = db.get_db().cursor()

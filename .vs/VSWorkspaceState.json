@@ -1,11 +1,14 @@
 {
   "ExpandedNodes": [
     "",
+    "\\db",
+    "\\fairway",
     "\\fairway\\src",
     "\\fairway\\src\\customer_api",
     "\\fairway\\src\\employee_api",
-    "\\fairway\\src\\manufacturer_api"
+    "\\fairway\\src\\manufacturer_api",
+    "\\secrets"
   ],
-  "SelectedNode": "\\fairway",
+  "SelectedNode": "\\fairway\\src\\employee_api\\employees.py",
   "PreviewInSolutionExplorer": false
 }
