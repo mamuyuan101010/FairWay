@@ -39,7 +39,15 @@ def get_manufacturers():
 @manufacturers.route('/manufacturers/<userID>', methods=['GET'])
 def get_manufacturer(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from Manufacturer where ManufacturerID = {0}'.format(userID))
+    cursor.execute('select Customer_ID, Customer.First_Name, Customer.Last_Name, \
+    Invoice.State, Invoice.City, Invoice.Country, Invoice.Purchase_Date, Product.Name, \
+    InvoiceLine.Quantity, Customer.Phone_Number, Customer.Email from Manufacturer \
+    inner join Creators on Manufacturer.ManufacturerID = Creators.ItemID \
+    inner join Product on Creators.CreatorID = Product.ProductId \
+    inner join InvoiceLine on Product.ProductId = InvoiceLine.Product_ID \
+    inner join Invoice on InvoiceLine.Receipt_ID = Invoice.InvoiceID \
+    inner join Customer on Invoice.Customer_ID = Customer.CustID \
+    where ManufacturerID = {0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
