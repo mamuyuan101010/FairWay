@@ -13,6 +13,8 @@ CREATE TABLE Employee (
     Last_Name char(40) NOT NULL,
     Supervisor_id BIGINT NOT NULL,
     FOREIGN KEY (Supervisor_id) REFERENCES Employee(employee_id)
+    ON UPDATE cascade
+    ON DELETE restrict
 );
 
 CREATE TABLE Customer (
@@ -41,6 +43,8 @@ CREATE TABLE Invoice (
     City TEXT NOT NULL,
     Customer_ID BIGINT NOT NULL,
     FOREIGN KEY (Customer_ID) REFERENCES Customer(CustID)
+    ON UPDATE cascade
+    ON DELETE restrict
 );
 
 CREATE TABLE Help_Request (
@@ -49,9 +53,15 @@ CREATE TABLE Help_Request (
     Customer_ID BIGINT NOT NULL,
     Customer_Service_ID BIGINT NOT NULL,
     Order_ID BIGINT NOT NULL,
-    FOREIGN KEY (Customer_ID) REFERENCES Customer(CustID),
-    FOREIGN KEY (Customer_Service_ID) REFERENCES Employee(employee_id),
+    FOREIGN KEY (Customer_ID) REFERENCES Customer(CustID)
+    ON UPDATE cascade
+    ON DELETE restrict,
+    FOREIGN KEY (Customer_Service_ID) REFERENCES Employee(employee_id)
+    ON UPDATE cascade
+    ON DELETE restrict,
     FOREIGN KEY (Order_ID) REFERENCES Invoice(InvoiceID)
+    ON UPDATE cascade
+    ON DELETE restrict
 );
 
 CREATE TABLE Product (
@@ -67,8 +77,12 @@ CREATE TABLE InvoiceLine (
     Receipt_ID BIGINT NOT NULL,
     Product_ID BIGINT NOT NULL,
     PRIMARY KEY (Invoice_LineID),
-    FOREIGN KEY (Receipt_ID) REFERENCES Invoice(InvoiceID),
+    FOREIGN KEY (Receipt_ID) REFERENCES Invoice(InvoiceID)
+    ON UPDATE cascade
+    ON DELETE restrict,
     FOREIGN KEY (Product_ID) REFERENCES Product(ProductId)
+    ON UPDATE cascade
+    ON DELETE restrict
 );
 
 CREATE TABLE Manufacturer (
@@ -84,8 +98,12 @@ CREATE TABLE Manufacturer (
 CREATE TABLE Creators (
     CreatorID BIGINT NOT NULL,
     ItemID BIGINT NOT NULL,
-    FOREIGN KEY (CreatorID) REFERENCES Product(ProductId),
+    FOREIGN KEY (CreatorID) REFERENCES Product(ProductId)
+    ON UPDATE cascade
+    ON DELETE restrict,
     FOREIGN KEY (ItemID) REFERENCES Manufacturer(ManufacturerID)
+    ON UPDATE cascade
+    ON DELETE restrict
 );
 
 insert into Employee (employee_id, Date_Been_Employed, Email_Address, First_Name, Last_Name, Supervisor_id) values (9508797385, '5/17/2022', 'inapthine0@yahoo.co.jp', 'Iosep', 'Napthine', 9508797385);

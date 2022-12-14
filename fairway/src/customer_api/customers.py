@@ -54,7 +54,7 @@ def show_product():
 @customers.route('/customers_registration', methods=['POST'])
 def customer_registration():
     current_app.logger.info(request.form)
-    cursor = db.get_db().cursor
+    cursor = db.get_db().cursor()
     email = request.form['email']
     phoneNum = request.form['phoneNum']
     firstN = request.form['firstName']
